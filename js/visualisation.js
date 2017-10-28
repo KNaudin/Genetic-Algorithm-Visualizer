@@ -3,9 +3,15 @@ visuel.showLoading();
 option = {
     tooltip: {
             trigger: "item",
-            formatter: "{b}",
-            name: "test"
+            formatter: function (params, ticket, callback) {
+                if(params.dataType=="node")
+                    return tooltipContent(params.data);
+                else return "";
+            },
+            name: "test",
+            triggerOn: 'click'
         },
+
     series: [{
         type: 'graph',
         layout: 'force',
@@ -27,7 +33,33 @@ option = {
             gravity: 0.2
         },
         edges: graph.data["links"],
+        edgeSymbol: ['none', 'arrow'],
+        edgeSymbolSize: [0, 8],
+        focusNodeAdjacency: true,
+        lineStyle: {
+            normal: {
+                color: 'source',
+                curveness: 0.0
+            }
+        }
     }]
 };
 visuel.hideLoading();
 visuel.setOption(option);
+
+function tooltipContent(node)
+{
+    var s = "<b>ID:</b> "+node.name+"<br />";
+    if(!$.isEmptyObject(node.parents))
+    {
+        s += "<b>Parents: </b>";
+            s += "<ul>";
+                for(var p in node.parents)
+                    s += "<li>"+node.parents[p]+"</li>";
+            s += "</ul>";
+    }
+    s+="<b>Fitness: </b>"+node.fitness;
+    return s;
+}
+
+

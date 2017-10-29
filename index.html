@@ -15,25 +15,24 @@
 
 	<body>
 
-		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		  <a class="navbar-brand" href="#">Genetic Algorithm Visualizer</a>
 		</nav>
 
-
-		<div style="width:1000px; height: 500px; border: 1px solid black;" id="visualisationGraph">
-
+		<div class="container-fluid">
+			<div class="row" id="row_visuel">
+			<div class="card visuelCard">
+				<h5 class="card-header">Genetic Algorithm Graph</h5>
+				<div id="visualisationGraph"></div>
+			</div>
+			</div>
 		</div>
-
-		<p>Le design, c'est du temporaire hein</p>
-
-
-
-
 
 		<script type="text/javascript" src="js/jquery.min.js"></script>
 		<script type="text/javascript" src="js/popper.min.js"></script>
 		<script type="text/javascript" src="js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="js/echarts.min.js"></script>
+		<script type="text/javascript" src="log.json"></script>
 		<script type="text/javascript" src="js/graph.js"></script>
 		<script type="text/javascript" src="js/visualisation.js"></script>
 

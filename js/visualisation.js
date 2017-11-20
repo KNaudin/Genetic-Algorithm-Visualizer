@@ -1,34 +1,22 @@
 
-$(function(){
-
-    var graph = new Graph();
-    
-    //Pour tout les nodes de l'objet log (défini dans le script inclus dans l'index -> a changer une fois le système d'upload de fichier en place)
-    for(var i in log.nodes)
-        graph.addNode(log.nodes[i]);
-    graph.spreadFitnessColor();
-
-    var visuel = echarts.init($('#visualisationGraph')[0]);
-    visuel.showLoading();
-    startGraphVisualisation(visuel, graph);
-
-
-})
-
 /**
   * Create a visual graph of the genetic algorithm
   * @param {visuel} The DOM element which will contain the graph
   * @param {graph} The data we will rely on
   */
-function startGraphVisualisation(visuel, graph)
+function startGraphVisualisation(visuel, graph, callback)
 {
-    var lastTooltipContent = "";
     option = {
         tooltip: {
                 trigger: "item",
                 formatter: function (params, ticket, callback) {
+                    lastTooltipContent = "";
                     if(params.dataType=="node")
                         lastTooltipContent = tooltipContent(params.data);
+                    if(params.dataType="links")
+                    {
+
+                    }
                     return lastTooltipContent;
                 },
                 name: "test",
@@ -38,18 +26,21 @@ function startGraphVisualisation(visuel, graph)
                 position: {right: 10, top: 10},
                 alwaysShowContent: true
             },
+            
         series: [{
             type: 'graph',
             layout: 'force',
             animation: false,
             label: {
                 emphasis: {
+                    show: true
+                },
+                normal: {
                     show: false
                 }
             },
-            draggable: true,
+            draggable: false,
             roam: true,
-            large: true,
             data: graph.data["nodes"],
             categories: graph.categories,
             force: {
@@ -58,7 +49,7 @@ function startGraphVisualisation(visuel, graph)
                 edgeLength: 5,
                 repulsion: 100,
                 gravity: 0.2,
-                //layoutAnimation: false,
+                layoutAnimation: false,
             },
             edges: graph.data["links"],
             edgeSymbol: ['none', 'arrow'],
@@ -66,8 +57,9 @@ function startGraphVisualisation(visuel, graph)
             focusNodeAdjacency: true,
             lineStyle: {
                 normal: {
-                    color: 'source',
-                    curveness: 0.0
+                    color: '#000000',
+                    curveness: 0.0,
+                    opacity: 1,
                 }
             }
         }]
@@ -99,16 +91,9 @@ function tooltipContent(node)
     return s;
 }
 
-/**
-  * Convert a color from RGB format to HEX format
-  * @param {r} The value of the RED component
-  * @param {g} The value of the GREEN component
-  * @param {b} The value of the BLUE component
-  * @return The color to HEX format
-  */
-function rgbToHex(r, g, b) {
-    return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
-}
+
+
+
 
 
 

@@ -10,6 +10,8 @@
 
 	  <link rel="stylesheet" href="css/style.css">
 	  <link rel="stylesheet" href="css/bootstrap.min.css">
+	  <link rel="stylesheet" href="css/font-awesome.min.css">
+
 
 	</head>
 
@@ -20,7 +22,25 @@
 		</nav>
 
 		<div class="container-fluid">
+
+			
+
 			<div class="row" id="row_visuel">
+				<div id="searchBar">
+				  <div class="col-md-4">
+				    <div class="input-group">
+				      <span class="input-group-btn">
+				        <button class="btn btn-outline-secondary" type="button" id="buttonPreviousNode"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+				      </span>
+				      <input type="number" class="form-control" placeholder="Node ID" aria-label="Product name" id="inputNodeName" min=0>
+				      <span class="input-group-btn">
+				        <button class="btn btn-outline-secondary" type="button" id="buttonNextNode"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+				        <button class="btn btn-outline-primary" type="button" id="buttonSearchNode"><i class="fa fa-search" aria-hidden="true"></i></button>
+				      </span>
+				    </div>
+				  </div>
+				</div>
+
 			<div class="card visuelCard">
 				<h5 class="card-header">Genetic Algorithm Graph</h5>
 				<div id="visualisationGraph"></div>
@@ -33,6 +53,7 @@
 		<script type="text/javascript" src="js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="js/echarts.min.js"></script>
 		<script type="text/javascript" src="log.json"></script>
+		<script type="text/javascript" src="js/application.js"></script>
 		<script type="text/javascript" src="js/graph.js"></script>
 		<script type="text/javascript" src="js/visualisation.js"></script>
 

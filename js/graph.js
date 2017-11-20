@@ -30,7 +30,10 @@ class Graph{
 			"emphasis" : {
 				"borderColor" : "#0000FF",
 				"borderWidth" : "3",
-				"borderType" : "dotted"
+				"borderType" : "dotted",
+				"shadowBlur": 5,
+                "shadowOffsetX": 0,
+                "shadowColor": 'rgba(0, 0, 0, 0.5)'
 			}
 		};
 
@@ -64,6 +67,9 @@ class Graph{
 	addLink(n1, n2)
 	{
 		var link = { "source":n1, "target":n2};
+		link["itemStyle"] = {
+			"style" : "curved"
+		};
 		this.data["links"].push(link);
 	}
 
@@ -75,28 +81,47 @@ class Graph{
 	 */
 	spreadFitnessColor()
 	{
-		//RED
+		//GREEN
 		var c1 = {
-			r:255,
-			g:0,
+			r:0,
+			g:255,
 			b:0
 		};
 
-		//GREEN
+		//RED
 		var c2 = {
-			r:0,
-			g:255,
+			r:255,
+			g:0,
 			b:0
 		};
 		for(var n in this.data["nodes"])
 		{
 			var r = (this.data["nodes"][n].fitness-this.minFitness)/(this.maxFitness-this.minFitness);
-			this.data["nodes"][n].itemStyle.normal["color"] = (rgbToHex((c1.r*r)+(c2.r*(1-r)), (c1.g*r)+(c2.g*(1-r)), (c1.b*r)+(c2.b*(1-r))));
+			this.data["nodes"][n].itemStyle.normal["color"] = (this.rgbToHex((c1.r*r)+(c2.r*(1-r)), (c1.g*r)+(c2.g*(1-r)), (c1.b*r)+(c2.b*(1-r))));
 			this.data["nodes"][n].itemStyle.emphasis["borderColor"] = this.data["nodes"][n].itemStyle.normal["color"];
 		}
 		
-
 	}
+
+	/**
+	  * Return the number of nodes contained in the graph, -1 if there is none
+	  */
+	getNodeNumber()
+	{
+		return (this.data.nodes.length != 0) ? this.data.nodes.length : -1;
+	}
+
+	/**
+	  * Convert a color from RGB format to HEX format
+	  * @param {r} The value of the RED component
+	  * @param {g} The value of the GREEN component
+	  * @param {b} The value of the BLUE component
+	  * @return The color to HEX format
+	  */
+	 rgbToHex(r, g, b) {
+	    return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+	}
+
 
 }
 

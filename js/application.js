@@ -9,26 +9,33 @@ class Application
 	constructor()
 	{
 		var self = this;
+		this.extractor = new Extractor();
 	    this.visuelGraph = echarts.init($('#visualisationGraph')[0]);
 	    this.visuelGraph.showLoading();
 
-		this.createGraph(function(){
-			startGraphVisualisation(self.visuelGraph, self.graph);
-			self.guiSearchBar();
-		});	    
-	    
-	    
+        $('#buttonImportFile').on('click',function(e){
+            self.extractor.extractFile()
+				.then(self.getExtractedNodes);
+        });
 	    
 	}
 
+	getExtractedNodes(extractedNodes){
+		var self = this;
+		this.nodes = extractedNodes;
+        this.createGraph(function(){
+            startGraphVisualisation(self.visuelGraph, self.graph);
+            self.guiSearchBar();
+        });
+	}
 
 	createGraph(callback)
 	{
 		this.graph = new Graph();
 	    //Pour tout les nodes de l'objet log (défini dans le script inclus dans l'index -> a changer une fois le système d'upload de fichier en place)
-	    for(var i in log.nodes)
+	    /*for(var i in log.nodes)
 	        this.graph.addNode(log.nodes[i]);
-	    this.graph.spreadFitnessColor();
+	    this.graph.spreadFitnessColor();*/
 	    callback();
 	}
 

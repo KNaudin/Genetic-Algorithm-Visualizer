@@ -14,28 +14,28 @@ class Application
 	    this.visuelGraph.showLoading();
 
         $('#buttonImportFile').on('click',function(e){
-            self.extractor.extractFile()
-				.then(self.getExtractedNodes);
+        	console.log("starting extractor");
+            self.extractor.extractFile(self).then(self.getExtractedNodes);
         });
 	    
 	}
 
 	getExtractedNodes(extractedNodes){
-		var self = this;
-		this.nodes = extractedNodes;
-        this.createGraph(function(){
-            startGraphVisualisation(self.visuelGraph, self.graph);
-            self.guiSearchBar();
+		var nodes = extractedNodes[1];
+		var context = extractedNodes[0];
+        context.createGraph(nodes, function(){
+            startGraphVisualisation(context.visuelGraph, context.graph);
+            context.guiSearchBar();
         });
+
 	}
 
-	createGraph(callback)
+	createGraph(nodes, callback)
 	{
 		this.graph = new Graph();
-	    //Pour tout les nodes de l'objet log (défini dans le script inclus dans l'index -> a changer une fois le système d'upload de fichier en place)
-	    /*for(var i in log.nodes)
-	        this.graph.addNode(log.nodes[i]);
-	    this.graph.spreadFitnessColor();*/
+	    for(var i in nodes)
+	        this.graph.addNode(nodes[i]);
+	    this.graph.spreadFitnessColor();
 	    callback();
 	}
 

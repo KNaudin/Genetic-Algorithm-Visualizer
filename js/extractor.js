@@ -4,7 +4,7 @@ class Extractor{
         this.fileName = "Error while processing given file.";
     }
 
-    extractFile(){
+    extractFile(context){
         return new Promise((resolve, reject) => {
             var extractedNodes = [];
             var input = document.createElement('input');
@@ -21,7 +21,8 @@ class Extractor{
                             extractedNodes.push(node);
                         });
                         console.log("Done.");
-                        resolve(extractedNodes);
+                        var value = [context, extractedNodes];
+                        resolve(value);
                     }
                     catch(e){
                         console.error("Parsing error:", e);

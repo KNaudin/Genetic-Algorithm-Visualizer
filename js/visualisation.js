@@ -6,6 +6,7 @@
   */
 function startGraphVisualisation(visuel, graph, callback)
 {
+	console.log(graph.data["nodes"]);
     option = {
         tooltip: {
                 trigger: "item",
@@ -41,7 +42,8 @@ function startGraphVisualisation(visuel, graph, callback)
             },
             draggable: false,
             roam: true,
-            data: graph.data["nodes"],
+            //data: graph.data["nodes"],
+            data: graph.getNodeByGeneration(3, false, false),
             categories: graph.categories,
             force: {
                 // initLayout: 'circular'

@@ -122,6 +122,17 @@ class Graph{
 	    return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
 	}
 
+	getNodeByGeneration(n, prev, next)
+	{
+		var tab = []
+		for(var i in this.data["nodes"])
+			if(this.data["nodes"][i].generation == n
+				|| (prev && this.data["nodes"][i].generation == n-1)
+				|| (next && this.data["nodes"][i].generation == n+1))
+				tab.push(this.data["nodes"][i])
+		return tab;
+	}
+
 
 }
 

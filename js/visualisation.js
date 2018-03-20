@@ -6,7 +6,6 @@
   */
 function startGraphVisualisation(visuel, graph, callback)
 {
-	console.log(graph.data["nodes"]);
     option = {
         tooltip: {
                 trigger: "item",
@@ -31,7 +30,7 @@ function startGraphVisualisation(visuel, graph, callback)
         series: [{
             type: 'graph',
             layout: 'force',
-            animation: false,
+            animation: true,
             label: {
                 emphasis: {
                     show: true
@@ -42,8 +41,16 @@ function startGraphVisualisation(visuel, graph, callback)
             },
             draggable: false,
             roam: true,
-            //data: graph.data["nodes"],
-            data: graph.getNodeByGeneration(3, false, false),
+            
+            /**
+                Get Nodes From a Generation
+                Or all nodes
+                Uncomment only one line
+            **/
+            //data: graph.getNodeByGeneration(3, false, false),
+            data: graph.data["nodes"],
+
+
             categories: graph.categories,
             force: {
                 // initLayout: 'circular'
